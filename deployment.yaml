@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-coffee
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: http
+  type: LoadBalancer
+  selector:
+    app: hello-coffee
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-coffee
+  labels:
+    app: hello-coffee
+spec:
+  selector:
+    matchLabels:
+      app: hello-coffee
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-coffee
+    spec:
+      containers:
+      - name: hello-coffee
+        image: hello-coffee
+        # image: europe-docker.pkg.dev/coffee-break-rob/coffee/hello-coffee:latest
+        # imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        # env:
+        #   - name: DEV_EXT_IP
+        #     value: "8.8.4.4"

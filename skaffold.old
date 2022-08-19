@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: hello-coffee-python
+build:
+  artifacts:
+    - image: hello-coffee
+      sync:
+        infer:
+          - '**/*.py'
+deploy:
+  kubectl:
+    manifests:
+      - deployment.yaml
+      - service.yaml

@@ -1,0 +1,13 @@
+requests>=2.25.0
+# Flask==2.2.2
+# Flask
+gunicorn>=20.0.4
+# emoji
+click==8.0.3
+colorama==0.4.4
+Flask==2.0.2
+itsdangerous==2.0.1
+Jinja2==3.0.3
+MarkupSafe==2.0.1
+Werkzeug==2.0.2
+gunicorn==20.1.0
