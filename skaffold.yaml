@@ -1,36 +1,17 @@
 apiVersion: skaffold/v2beta29
 kind: Config
 metadata:
-  name: hello-coffee
+  name: coffee-break-rob
 build:
   artifacts:
-  - image: hello-coffee
-    docker:
-      dockerfile: Dockerfile
+    - image: europe-docker.pkg.dev/coffee-break-rob/coffee/hello-coffee
+      sync:
+        infer:
+          - '**/*.py'
+  # local:
+  #    push: true
 deploy:
   kubectl:
     manifests:
     - deployment.yaml
-
-
-
-# apiVersion: skaffold/v2beta29
-# kind: Config
-# metadata:
-#   name: hello-coffee
-# build:
-#   artifacts:
-#   - image: hello-coffee
-#     buildpacks:
-#       builder: "gcr.io/buildpacks/builder:v1@sha256:7e9a944a4e0152070d2fe93cb6f001918f9bf0e1cdb2d4e70a5c10ba34f023bd"
-#       trustBuilder: true
-#       env:
-#       - GOOGLE_RUNTIME_VERSION=8
-# profiles:
-# - name: gcb
-#   build:
-#     googleCloudBuild: {}
-# deploy:
-#   kubectl:
-#     manifests:
-#     - deployment.yaml
+    - service.yaml

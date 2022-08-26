@@ -1,14 +1,22 @@
 from flask import Flask, render_template
-# import os
 
 app = Flask(__name__)
 
 @app.route("/")
-def index():
-    pagetitle = "HomePage"
-    return render_template("index.html",
-                            mytitle=pagetitle,
-                            mycontent="Hello World")
+def home():
+    return render_template("index.html")
 
+@app.route("/about")
+def about():    
+    return render_template("about.html")
+
+@app.route("/404")
+def notfound():    
+    return render_template("404.html")
+    
+@app.route("/coffeesay")
+def salvador():
+    return "The best `cowsay` fork ever :-)"
+    
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True)
