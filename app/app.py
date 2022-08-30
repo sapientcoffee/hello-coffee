@@ -1,7 +1,11 @@
 import os
+import json
 from flask import Flask, render_template
 
 app = Flask(__name__)
+# os.getenv('name_of_variable')
+# os.environ
+# os.environ['name_of_variable']
 
 # @app.route("/")
 # def hello_world():
@@ -11,10 +15,16 @@ app = Flask(__name__)
 @app.route("/")
 def home():
 
-    for k, v in os.environ.items():
-        print(f'{k}={v}')
 
-    var = 'dog'
+    # Iterate loop to read and print all environment variables
+    print("The keys and values of all environment variables:")
+    for key in os.environ:
+        print(key, '=>', os.environ[key])
+
+    # Print the value of the particular environment variable
+    print("The value of HOME is: ", os.environ['HOME'])
+    
+    var = 'v60'
 
     return render_template("index.html", value=var)
 
