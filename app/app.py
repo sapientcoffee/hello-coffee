@@ -10,7 +10,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+
+    for k, v in os.environ.items():
+        print(f'{k}={v}')
+
+    var = 'dog'
+
+    return render_template("index.html", value=var)
 
 @app.route("/about")
 def about():    
