@@ -15,3 +15,9 @@ kubectl get service
 curl http://EXTERNAL_IP:8080
 
 
+
+gcloud builds submit \
+    --region=us-west2 --config \
+    cloudbuild.yaml
+
+
