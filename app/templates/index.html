@@ -84,5 +84,31 @@
     <script src="./static/scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
     <script src="./static/scripts/aos.min.js?ver=1.2.0"></script>
     <script src="./static/scripts/main.js?ver=1.2.0"></script>
+ 
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAwAwtSrolKP6OM5_BibGKn2Mt6w_OzcQ4",
+        authDomain: "firecoffee-with-rob.firebaseapp.com",
+        projectId: "firecoffee-with-rob",
+        storageBucket: "firecoffee-with-rob.appspot.com",
+        messagingSenderId: "59809175699",
+        appId: "1:59809175699:web:485483088b1cb58eec5566",
+        measurementId: "G-68VJGYGNYL"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+
   </body>
+  
 </html>
