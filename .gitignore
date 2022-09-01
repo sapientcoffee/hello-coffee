@@ -1,5 +1,6 @@
 # Firebase Hosting
 .firebaserc
+.firebase
 firebase-debug.log
 
 
