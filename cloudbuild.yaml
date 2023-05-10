@@ -1,7 +1,5 @@
 steps:
 - name: 'gcr.io/kaniko-project/executor:latest'
-  args: ["--destination=europe-docker.pkg.dev/coffee-break-rob/coffee/hello-coffee:latest", "--dockerfile=Dockerfile", "--cache=true", "--cache-ttl=24h"]    
+  args: ["--destination=europe-docker.pkg.dev/secure-cicd-pipeline/hello-coffee:latest", "--dockerfile=Dockerfile", "--cache=true", "--cache-ttl=24h"]    
 
 timeout: '1600s'
-
-  # - 'europe-docker.pkg.dev/coffee-break-rob/coffee/hello-coffee:tag1'
