@@ -1,15 +1,15 @@
 apiVersion: skaffold/v3alpha1
 kind: Config
 metadata:
- name: run-app-pipeline
+  name: run-app-pipeline
 profiles:
 - name: dev-service
- manifests:
-   rawYaml:
-   - deploy-dev.yaml
+  manifests:
+    rawYaml:
+    - deploy-dev.yaml
 - name: prod-service
- manifests:
-   rawYaml:
-   - deploy-prod.yaml
+  manifests:
+    rawYaml:
+    - deploy-prod.yaml
 deploy:
- cloudrun: {}
+  cloudrun: {}

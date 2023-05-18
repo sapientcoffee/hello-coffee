@@ -1,0 +1,28 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+      - .
+  
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+  
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - deploy
+      - releases
+      - create
+      - 'run-release-${SHORT_SHA}'
+      - '--region'
+      - '${_DEPLOY_REGION}'
+      - '--delivery-pipeline'
+      - '${_DEPLOY_PIPELINE}'
+      - '--annotations'
+      - 'commitID=${REVISION_ID}'
+      - '--images'
+      - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    
