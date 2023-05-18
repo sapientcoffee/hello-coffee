@@ -1,17 +1,15 @@
-apiVersion: skaffold/v2beta29
+apiVersion: skaffold/v3alpha1
 kind: Config
 metadata:
-  name: coffee-break-rob
-build:
-  artifacts:
-    - image: europe-docker.pkg.dev/coffee-break-rob/coffee/hello-coffee
-      sync:
-        infer:
-          - '**/*.py'
-  # local:
-  #    push: true
+ name: run-app-pipeline
+profiles:
+- name: dev-service
+ manifests:
+   rawYaml:
+   - deploy-dev.yaml
+- name: prod-service
+ manifests:
+   rawYaml:
+   - deploy-prod.yaml
 deploy:
-  kubectl:
-    manifests:
-    - deployment.yaml
-    - service.yaml
+ cloudrun: {}
