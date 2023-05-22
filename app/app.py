@@ -24,7 +24,7 @@ def home():
     # Print the value of the particular environment variable
     print("The value of HOME is: ", os.environ['HOME'])
     
-    var = 'v60'
+    var = 'chemex'
 
     return render_template("index.html", value=var)
 
