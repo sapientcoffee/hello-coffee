@@ -24,5 +24,6 @@ kind: Target
 metadata:
   name: prod-service
 description: Cloud Run Prod service
+requireApproval: true
 run:
   location: projects/secure-cicd-pipeline/locations/us-east1
