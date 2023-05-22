@@ -1,7 +1,7 @@
 
 # Use the official lightweight Python image.
 # https://hub.docker.com/_/python
-FROM python:3.10-slim #has high sev cve
+FROM python:3.10-slim
 # FROM python:alpine
 
 # Allow statements and log messages to immediately appear in the Knative logs
