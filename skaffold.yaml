@@ -1,15 +1,19 @@
 apiVersion: skaffold/v3alpha1
 kind: Config
 metadata:
-  name: run-app-pipeline
+  name: v60-coffee
 profiles:
-- name: dev-service
+- name: beans
   manifests:
     rawYaml:
-    - deploy-dev.yaml
-- name: prod-service
+    - deploy-beans.yaml
+- name: grind
   manifests:
     rawYaml:
-    - deploy-prod.yaml
+    - deploy-grind.yaml
+- name: brew
+  manifests:
+    rawYaml:
+    - deploy-brew.yaml
 deploy:
   cloudrun: {}

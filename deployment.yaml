@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: hello-coffee
-          image: europe-docker.pkg.dev/coffee-break-rob/coffee/hello-coffee:latest
+          image: europe-docker.pkg.dev/coffee-and-codey/coffee/hello-coffee:latest

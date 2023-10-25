@@ -49,7 +49,7 @@ Prep is to create the deploy pipeline;
 
 Create a release 
 ```
-gcloud deploy releases create "initial" --delivery-pipeline="run-app-pipeline" --region="us-east1" --images="app=europe-docker.pkg.dev/secure-cicd-pipeline/hello-coffee/coffee:latest"
+gcloud deploy releases create "initial" --delivery-pipeline="v60-coffee" --region="us-east1" --images="app=europe-docker.pkg.dev/secure-cicd-pipeline/hello-coffee/coffee:latest"
 ```
 
 ```
