@@ -16,7 +16,7 @@ steps:
       - deploy
       - releases
       - create
-      - 'run-release-${SHORT_SHA}'
+      - '${SHORT_SHA}'
       - '--region'
       - '${_DEPLOY_REGION}'
       - '--delivery-pipeline'
