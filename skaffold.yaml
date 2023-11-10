@@ -1,4 +1,4 @@
-apiVersion: skaffold/v3alpha1
+apiVersion: skaffold/v4beta5
 kind: Config
 metadata:
   name: v60-coffee
@@ -17,3 +17,16 @@ profiles:
     - deploy-brew.yaml
 deploy:
   cloudrun: {}
+customActions:
+- name: predeploy-action
+  containers:
+  - name: predeploy-echo
+    image: ubuntu
+    command: ["/bin/sh"]
+    args: ["-c", 'echo "this is a predeploy action"' ]
+- name: postdeploy-action
+  containers:
+  - name: postdeploy-echo
+    image: ubuntu
+    command: ["/bin/sh"]
+    args: ["-c", 'echo "this is a postdeploy action"' ]
