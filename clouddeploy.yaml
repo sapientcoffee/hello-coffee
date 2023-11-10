@@ -31,6 +31,7 @@ kind: Target
 metadata:
   name: beans
 description: v60 development environment on Cloud Run
+requireApproval: true
 run:
   location: projects/coffee-and-codey/locations/us-east1
 ---
@@ -45,8 +46,23 @@ run:
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: brew
-description: v60 PRODUCTION on Cloud Run
-requireApproval: true
+ name: brew-us
+description: TARGET_DESCRIPTION
 run:
   location: projects/coffee-and-codey/locations/us-east1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: brew-europe
+description: TARGET_DESCRIPTION
+run:
+  location: projects/coffee-and-codey/locations/europe-west1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: brew
+description: v60 PRODUCTION on Cloud Run
+multiTarget:
+  targetIds: [brew-us, brew-europe]
