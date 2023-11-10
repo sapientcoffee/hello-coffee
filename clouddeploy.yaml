@@ -30,7 +30,11 @@ apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
   name: beans
+  labels:
+    label1: label1
 description: v60 development environment on Cloud Run
+deployParameters:
+  application_env1: "sampleValue1"
 run:
   location: projects/coffee-and-codey/locations/us-east1
 ---
