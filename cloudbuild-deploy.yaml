@@ -1,5 +1,6 @@
 steps:
   - name: gcr.io/cloud-builders/docker
+    id: Build Container Image
     args:
       - build
       - '-t'
@@ -7,11 +8,13 @@ steps:
       - .
   
   - name: gcr.io/cloud-builders/docker
+    id: Push Container Image
     args:
       - push
       - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
   
   - name: gcr.io/cloud-builders/gcloud
+    id: Create a Cloud Deploy Candidate
     args:
       - deploy
       - releases
