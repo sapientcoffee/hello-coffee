@@ -7,3 +7,6 @@ spec:
    spec:
      containers:
      - image: app
+       env:
+       - name: stage
+         value: brew

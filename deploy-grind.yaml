@@ -12,5 +12,5 @@ spec:
       - name: app
         image: app
         env:
-          - name: NAME
-            value: "grind"
+          - name: stage
+            value: grind
