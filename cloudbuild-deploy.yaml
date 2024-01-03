@@ -19,7 +19,7 @@ steps:
       - deploy
       - releases
       - create
-      - '${SHORT_SHA}'
+      - 'coffee-${SHORT_SHA}'
       - '--region'
       - '${_DEPLOY_REGION}'
       - '--delivery-pipeline'
