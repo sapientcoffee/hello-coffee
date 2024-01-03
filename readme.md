@@ -13,6 +13,7 @@ The inner loop is everything prior to code being pushed to git.
 
 ### Cloud Workstations
 
+Test locally from the `/app` directory with `python app.py`.
 
 ### Emulators
 

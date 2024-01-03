@@ -7,8 +7,10 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     
-    var = os.environ['stage']
-    # var = 'chemex'
+    if 'stage' in os.environ:
+        var = os.environ['stage']
+    else:
+        var = 'foobar'
 
     return render_template("index.html", value=var)
 
@@ -20,9 +22,9 @@ def about():
 def notfound():    
     return render_template("404.html")
     
-# @app.route("/coffeesay")
-# def salvador():
-#     return "The best `cowsay` fork ever :-)"
+@app.route("/coffeesay")
+def salvador():
+    return "The best `cowsay` fork ever (well it will be :-))"
     
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
