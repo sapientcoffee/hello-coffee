@@ -21,27 +21,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 # to be equal to the cores available.
 # Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
-
-
-
-
-
-# # start by pulling the python image
-# FROM python:3.8-alpine
-
-# # copy the requirements file into the image
-# COPY app/requirements.txt /app/requirements.txt
-
-# # switch working directory
-# WORKDIR /app
-
-# # install the dependencies and packages in the requirements file
-# RUN pip install -r requirements.txt
-
-# # copy every content from the local file to the image
-# COPY app/ /app
-
-# # configure the container to run in an executed manner
-# ENTRYPOINT [ "python" ]
-
-# CMD ["app.py" ]
