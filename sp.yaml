@@ -1,0 +1,14 @@
+version: v1alpha1
+vulnerabilities:
+   # suppress vulnerabilities with fixes with severity ≤ Medium
+   maximumFixableSeverity:  Medium
+   # suppress vulnerabilities with no fixes with severity ≤ High
+   maximumUnfixableSeverity: High
+   # CVEs to be ignored.
+   exempted:
+      #- id: CVE-2017-1000082
+      #  reason: "we disable databind functionality so not exploitable"
+      #  expires: 2023-12-12
+licenses:
+   allow: [Apache-*, "0BSD", Beerware, BSD-*]
+   deny: [CC-BY-NC-*]

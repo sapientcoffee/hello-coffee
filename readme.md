@@ -1,6 +1,6 @@
 # Coffee Time
 
-The simple app has been created to help demonstrate various aspects fo app/dev and Google Cloud. Its fairly basic by design and of course coffee themed!
+The simple app has been created to help demonstrate various aspects of application development and Google Cloud. Its fairly basic by design and of course coffee themed!
 
 Thing are broken down into the "inner" and "outer" loops.
 
@@ -8,12 +8,16 @@ Thing are broken down into the "inner" and "outer" loops.
 
 The following are mainly notes/prompts for me personally (I have a terrible memory at times, especially when presenting its easy to forget things), at some time I will make them more generic and parametrise various commands.
 
+The inner loop comprises developer tasks such as coding, testing, and pushing to version control while the outer loop includes activities such as code merge, automated code review, test execution, deployment, and release.
+
 ## Inner Loop
-The inner loop is everything prior to code being pushed to git.
+The inner loop is everything prior to code being pushed to git and represents the core coding (day-to-day activities), testing, and debugging activities that developers perform as they work on the details of the code. It is a continuous and iterative process where developers rapidly cycle through these activities to make incremental improvements and ensure the code's quality. The goal of the inner loop is to ensure that the codebase remains stable and reliable while quickly responding to changes, fixing issues, and delivering updates to the software product. It is a fundamental part of modern software development practices and contributes to the agility and responsiveness of development teams.
 
 ### Cloud Workstations
 
 Test locally from the `/app` directory with `python app.py`.
+
+### Skaffold
 
 ### Emulators
 
@@ -21,7 +25,7 @@ Test locally from the `/app` directory with `python app.py`.
 ### Local build and testing (Cloud Build)
 
 ## Outer Loop
-Once things have been pushed to git the outer loop takes over.
+Once things have been pushed to git the outer loop takes over. The "outer loop" refers to the broader and higher-level phases or activities that are part of the software development life cycle (SDLC) and within DevOps practices, the "outer loop" can be related to activities related to integration, testing, release, and deployment. 
 
 ### Build Image
 
