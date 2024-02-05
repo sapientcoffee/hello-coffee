@@ -1,37 +1,75 @@
 steps:
-  - name: gcr.io/cloud-builders/docker
-    id: Build Container Image
-    args:
-      - build
-      - '-t'
-      - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
-      - .
-    
+
+- name: gcr.io/cloud-builders/docker
+  id: Build Container Image
+  args:
+    - build
+    - '-t'
+    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    - .
+  
   # - name: gcr.io/cloud-builders/docker
   #   id: Push Container Image
   #   args:
   #     - push
   #     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
   
-  - name: gcr.io/cloud-builders/gcloud
-    id: Create a Cloud Deploy Candidate
-    args:
-      - deploy
-      - releases
-      - create
-      - 'coffee-${SHORT_SHA}'
-      - '--region'
-      - '${_DEPLOY_REGION}'
-      - '--delivery-pipeline'
-      - '${_DEPLOY_PIPELINE}'
-      - '--annotations'
-      - 'commitID=${REVISION_ID}'
-      - '--images'
-      - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+- name: gcr.io/cloud-builders/gcloud
+  id: Create a Cloud Deploy Candidate
+  args:
+    - deploy
+    - releases
+    - create
+    - 'coffee-${SHORT_SHA}'
+    - '--region'
+    - '${_DEPLOY_REGION}'
+    - '--delivery-pipeline'
+    - '${_DEPLOY_PIPELINE}'
+    - '--annotations'
+    - 'commitID=${REVISION_ID}'
+    - '--images'
+    - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
+  # - name: string
+  #   args: [string, string, ...]
+  #   env: [string, string, ...]
+  #   allowFailure: boolean
+  #   allowExitCodes: [string (int64 format), string (int64 format), ...]
+  #   dir: string
+  #   id: string
+  #   waitFor: [string, string, ...]
+  #   entrypoint: string
+  #   secretEnv: string
+  #   volumes: object(Volume)
+  #   timeout: string (Duration format)
+  #   script: string
+  
 
 images:
 - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
-
+# timeout: string (Duration format)
+# queueTtl: string (Duration format)
+# logsBucket: string
 options:
   logging: CLOUD_LOGGING_ONLY
   requestedVerifyOption: VERIFIED
+#  env: [string, string, ...]
+#  secretEnv: string
+#  volumes: object(Volume)
+#  sourceProvenanceHash: enum(HashType)
+#  machineType: enum(MachineType)
+#  diskSizeGb: string (int64 format)
+#  substitutionOption: enum(SubstitutionOption)
+#  dynamicSubstitutions: boolean
+#  logStreamingOption: enum(LogStreamingOption)
+#  defaultLogsBucketBehavior: enum(DefaultLogsBucketBehavior)
+#  pool: object(PoolOption)
+# substitutions: map (key: string, value: string)
+# tags: [string, string, ...]
+# serviceAccount: string
+# secrets: object(Secret)
+# availableSecrets: object(Secrets)
+# artifacts: object(Artifacts)
+#   mavenArtifacts: [object(MavenArtifact), ...]
+#   pythonPackages: [object(PythonPackage), ...]
+#   npmPackages: [object(npmPackage), ...]
