@@ -20,9 +20,124 @@ Test locally from the `/app` directory with `python app.py`.
 ### Skaffold
 
 ### Emulators
+To simplify development, in particular prototyping and testing apps a number of local emulation options exist.
+
+Two areas of emulation exists for Google Cloud solutions, firstly Google Cloud products and secondly Firebase products (which are actually Google Cloud Products).
 
 
-### Local build and testing (Cloud Build)
+#### `gcloud`
+
+
+`gcloud emulator -h`
+
+`gcloud alpha emulator -h`
+
+`gcloud alpha emulator pubsub start`
+
+```
+Executing: /usr/lib/google-cloud-sdk/platform/pubsub-emulator/bin/cloud-pubsub-emulator --host=localhost --port=8085
+[pubsub] This is the Google Pub/Sub fake.
+[pubsub] Implementation may be incomplete or differ from the real system.
+[pubsub] Feb 05, 2024 10:21:14 AM com.google.cloud.pubsub.testing.v1.Main main
+[pubsub] INFO: IAM integration is disabled. IAM policy methods and ACL checks are not supported
+[pubsub] SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+[pubsub] SLF4J: Defaulting to no-operation (NOP) logger implementation
+[pubsub] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[pubsub] Feb 05, 2024 10:21:15 AM com.google.cloud.pubsub.testing.v1.Main main
+[pubsub] INFO: Server started, listening on 8085
+```
+
+#### `firebase`
+The Firebase Emulator Suite (as of time of writing) consists of;
+* Hosting
+* Cloud Functions
+* Realtime Database
+* Firestore
+* Auth Emulator
+* Cloud Storage
+* Cloud Pub/Sub
+* Extenstions
+
+To spin up an emulator you must first have the firebase CLI installed and run either `firebase init` or have `firebase.json` in the root of the project.
+
+```
+firebase init
+
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/user/workspace
+
+? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your choices. Emulators: Set up local emulators for Firebase products
+
+=== Project Setup
+
+First, let's associate this project directory with a Firebase project.
+You can create multiple project aliases by running firebase use --add, 
+but for now we'll just set up a default project.
+
+? Please select an option: Don't set up a default project
+
+=== Emulators Setup
+? Which Firebase emulators do you want to set up? Press Space to select emulators, then Enter to confirm your choices. Authentication Emulator, Functions Emulator, Firestore Emulator, Database Emulator, Hosting Emulator, Pub/Sub Emulator, Storage 
+Emulator, Eventarc Emulator
+? Which port do you want to use for the auth emulator? 9099
+? Which port do you want to use for the functions emulator? 5001
+? Which port do you want to use for the firestore emulator? 8080
+? Which port do you want to use for the database emulator? 9000
+? Which port do you want to use for the hosting emulator? 5000
+? Which port do you want to use for the pubsub emulator? 8085
+? Which port do you want to use for the storage emulator? 9199
+? Which port do you want to use for the eventarc emulator? 9299
+? Would you like to enable the Emulator UI? Yes
+? Which port do you want to use for the Emulator UI (leave empty to use any available port)? 
+? Would you like to download the emulators now? Yes
+
+i  firestore: downloading cloud-firestore-emulator-v1.18.2.jar...
+Progress: ====================================================================================================================================================================================================================================> (100% of 64MB)
+i  database: downloading firebase-database-emulator-v4.11.2.jar...
+Progress: ====================================================================================================================================================================================================================================> (100% of 35MB)
+i  pubsub: downloading pubsub-emulator-0.7.1.zip...
+Progress: ====================================================================================================================================================================================================================================> (100% of 66MB)
+i  storage: downloading cloud-storage-rules-runtime-v1.1.3.jar...
+Progress: ====================================================================================================================================================================================================================================> (100% of 53MB)
+i  ui: downloading ui-v1.11.7.zip...
+
+i  Writing configuration info to firebase.json...
+i  Writing project information to .firebaserc...
+i  Writing gitignore file to .gitignore...
+
+✔  Firebase initialization complete!
+```
+
+
+`firebase emulators:start`
+
+```
+
+```
+`firebase emulators:start --only hosting`
+
+![Firebase YouTube Emulation Discussion](https://youtu.be/pkgvFNPdiEs?si=fDStMudUQ2MvZNJC)
+
+UI is available at `http://localhost:4000`
+
+
+### Local build and testing 
+
+Cloud Code -> Cloud Run -> Run app on local emulator
+
+OR
+
+Open the command palette (press Ctrl/Cmd+Shift+P or click View > Command Palette) and then run the Run on Cloud Run Emulator command.
+
+`cd app`
+`gcloud beta code dev`
 
 ## Outer Loop
 Once things have been pushed to git the outer loop takes over. The "outer loop" refers to the broader and higher-level phases or activities that are part of the software development life cycle (SDLC) and within DevOps practices, the "outer loop" can be related to activities related to integration, testing, release, and deployment. 
