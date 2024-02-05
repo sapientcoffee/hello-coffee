@@ -30,6 +30,7 @@ steps:
   
 - name: gcr.io/cloud-builders/gcloud
   id: Create a Software Bill of Materials (SBOM)
+  allowFailure: true
   args:
     - artifacts
     - sbom
