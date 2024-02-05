@@ -1,5 +1,4 @@
 steps:
-
 - name: 'python'
   id: PIP Update
   entrypoint: 'python'
@@ -84,9 +83,9 @@ options:
 # serviceAccount: string
 # secrets: object(Secret)
 # availableSecrets: object(Secrets)
-artifacts: object(Artifacts)
+artifacts:
   pythonPackages:
-  - repository: 'https://europe-python.pkg.dev/$PROJECT_ID/REPOSITORY'
+  - repository: 'https://europe-python.pkg.dev/$PROJECT_ID/hello-coffee-python'
     paths: ['dist/*']
 #   mavenArtifacts: [object(MavenArtifact), ...]
 #   npmPackages: [object(npmPackage), ...]
