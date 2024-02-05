@@ -29,6 +29,15 @@ steps:
   #     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
   
 - name: gcr.io/cloud-builders/gcloud
+  id: Create a Software Bill of Materials (SBOM)
+  args:
+  - artifacts
+  - sbom
+  - export
+  - '--uri=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA`
+
+
+- name: gcr.io/cloud-builders/gcloud
   id: Create a Cloud Deploy Candidate
   args:
     - deploy
