@@ -6,7 +6,7 @@ steps:
       - '-t'
       - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
       - .
-  
+    
   - name: gcr.io/cloud-builders/docker
     id: Push Container Image
     args:
@@ -30,3 +30,4 @@ steps:
       - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
 options:
   logging: CLOUD_LOGGING_ONLY
+  requestedVerifyOption: VERIFIED
