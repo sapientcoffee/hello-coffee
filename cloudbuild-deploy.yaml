@@ -7,11 +7,11 @@ steps:
       - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
       - .
     
-  - name: gcr.io/cloud-builders/docker
-    id: Push Container Image
-    args:
-      - push
-      - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+  # - name: gcr.io/cloud-builders/docker
+  #   id: Push Container Image
+  #   args:
+  #     - push
+  #     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
   
   - name: gcr.io/cloud-builders/gcloud
     id: Create a Cloud Deploy Candidate
@@ -28,6 +28,10 @@ steps:
       - 'commitID=${REVISION_ID}'
       - '--images'
       - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
+images:
+- '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
 options:
   logging: CLOUD_LOGGING_ONLY
   requestedVerifyOption: VERIFIED
