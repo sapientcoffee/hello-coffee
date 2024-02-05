@@ -19,7 +19,8 @@ steps:
   args:
     - build
     - '-t'
-    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    - $_IMAGE
+    # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
     - .
   
   # - name: gcr.io/cloud-builders/docker
@@ -36,7 +37,8 @@ steps:
     - sbom
     - export
     - '--uri'
-    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
+    - $_IMAGE
+    # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
 
 
 - name: gcr.io/cloud-builders/gcloud
@@ -53,7 +55,8 @@ steps:
     - '--annotations'
     - 'commitID=${REVISION_ID}'
     - '--images'
-    - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    # - 'app=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    - 'app=$_IMAGE'
 
   # - name: string
   #   args: [string, string, ...]
@@ -71,13 +74,19 @@ steps:
   
 
 images:
-- '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+  - $_IMAGE 
+# - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
 # timeout: string (Duration format)
 # queueTtl: string (Duration format)
 # logsBucket: string
+
+substitutions:
+  _IMAGE: '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
 options:
   logging: CLOUD_LOGGING_ONLY
   requestedVerifyOption: VERIFIED
+  dynamicSubstitutions: true
 #  env: [string, string, ...]
 #  secretEnv: string
 #  volumes: object(Volume)
@@ -85,7 +94,6 @@ options:
 #  machineType: enum(MachineType)
 #  diskSizeGb: string (int64 format)
 #  substitutionOption: enum(SubstitutionOption)
-#  dynamicSubstitutions: boolean
 #  logStreamingOption: enum(LogStreamingOption)
 #  defaultLogsBucketBehavior: enum(DefaultLogsBucketBehavior)
 #  pool: object(PoolOption)
