@@ -1,5 +1,20 @@
 steps:
 
+- name: 'python'
+  id: PIP Update
+  entrypoint: 'python'
+  args: ['-m', 'pip', 'install', '--upgrade', 'pip']
+
+- name: python
+  id: Install dependencies
+  entrypoint: python
+  args: ['-m', 'pip', 'install', 'build', 'pytest', 'Flask', '--user']
+
+- name: 'python'
+  id: Unit Test
+  entrypoint: 'python'
+  args: ['-m', 'pytest', '--junitxml=${SHORT_SHA}_test_log.xml']
+
 - name: gcr.io/cloud-builders/docker
   id: Build Container Image
   args:
@@ -69,7 +84,10 @@ options:
 # serviceAccount: string
 # secrets: object(Secret)
 # availableSecrets: object(Secrets)
-# artifacts: object(Artifacts)
+artifacts: object(Artifacts)
+  pythonPackages:
+  - repository: 'https://europe-python.pkg.dev/$PROJECT_ID/REPOSITORY'
+    paths: ['dist/*']
 #   mavenArtifacts: [object(MavenArtifact), ...]
-#   pythonPackages: [object(PythonPackage), ...]
 #   npmPackages: [object(npmPackage), ...]
+# https://cloud.google.com/build/docs/build-config-file-schema for full details
