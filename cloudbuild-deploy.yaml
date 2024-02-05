@@ -34,7 +34,7 @@ steps:
     - artifacts
     - sbom
     - export
-    - '--uri=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    - '--uri=$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE@sha256:$COMMIT_SHA'
 
 
 - name: gcr.io/cloud-builders/gcloud
