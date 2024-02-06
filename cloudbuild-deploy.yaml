@@ -59,7 +59,9 @@ steps:
   args:
     - -c
     - |
-      gcloud deploy releases create coffee-${SHORT_SHA} -region ${_DEPLOY_REGION} --delivery-pipeline ${_DEPLOY_PIPELINE} --annotationscommitID=${REVISION_ID}--images app=${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
+      gcloud deploy releases create coffee-${SHORT_SHA} -region ${_DEPLOY_REGION} --delivery-pipeline ${_DEPLOY_PIPELINE} \
+      --annotations commitID=${REVISION_ID} \
+      --images app=${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
 
 # Example task schema
   # - name: string
