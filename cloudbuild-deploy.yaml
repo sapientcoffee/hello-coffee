@@ -42,6 +42,7 @@ steps:
       $_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA \
       --format 'value(image_summary.digest)' > /workspace/image-sha.txt
 
+# Genereate SBOM
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk
   id: Create a Software Bill of Materials (SBOM)
   allowFailure: true
@@ -51,6 +52,20 @@ steps:
     - |
       gcloud artifacts sbom export --uri ${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
     # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
+
+# BinAUth Attestation
+- id: 'create-attestation'
+  name: 'gcr.io/${PROJECT_ID}/binauthz-attestation:latest'
+  entrypoint: /bin/bash
+  allowFailure: true
+  args:
+    - -c
+    - '--artifact-url'
+    - 'gcr.io/${PROJECT_ID}/helloworld:latest'
+    - '--attestor'
+    - 'projects/${PROJECT_ID}/attestors/ATTESTOR_NAME'
+    - '--keyversion'
+    - 'projects/${PROJECT_ID}/locations/KMS_KEY_LOCATION/keyRings/KMS_KEYRING_NAME/cryptoKeys/KMS_KEY_NAME/cryptoKeyVersions/KMS_KEY_VERSION'
 
 
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk
