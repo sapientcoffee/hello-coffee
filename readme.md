@@ -184,9 +184,28 @@ Progressinve rollout
 
 #### Assured OSS
 
+#### BinAuth
+
+`gcloud auth configure-docker europe-docker.pkg.dev`
+
+docker build -t europe-docker.pkg.dev/coffee-and-codey/hello-coffee/coffee:dodgy .
+docker push europe-docker.pkg.dev/coffee-and-codey/hello-coffee/coffee:dodgy
+
 
 #### SLSA
 
+
+## Env Setup
+
+```
+gcloud services enable \
+  artifactregistry.googleapis.com \
+  binaryauthorization.googleapis.com \
+  cloudkms.googleapis.com \
+  container.googleapis.com \
+  containerregistry.googleapis.com \
+  containersecurity.googleapis.com
+```
 
 ## Graveyard
 
