@@ -1,0 +1,6 @@
+steps:
+- name: 'ubuntu'
+  args: ['echo', 'I would love a coffee!']
+
+
+# gcloud builds submit . --config cloudbuild.yaml
