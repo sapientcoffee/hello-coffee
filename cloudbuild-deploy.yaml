@@ -1,14 +1,15 @@
 steps:
+# Python setup
 - name: 'python'
   id: Setup Python environment
   entrypoint: 'python'
   args: ['-m', 'pip', 'install', '--upgrade', 'pip']
-
 - name: python
   id: Install dependencies
   entrypoint: python
   args: ['-m', 'pip', 'install', 'build', 'pytest', 'Flask', '--user']
 
+# Unit Testing using Python framework
 - name: 'python'
   id: Unit Test
   entrypoint: 'python'
@@ -67,7 +68,7 @@ steps:
     - '--keyversion'
     - 'projects/${PROJECT_ID}/locations/KMS_KEY_LOCATION/keyRings/KMS_KEYRING_NAME/cryptoKeys/KMS_KEY_NAME/cryptoKeyVersions/KMS_KEY_VERSION'
 
-
+# Create a Cloud Deploy Candidate
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk
   id: Create a Cloud Deploy Candidate
   entrypoint: /bin/bash
