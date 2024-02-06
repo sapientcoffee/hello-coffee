@@ -31,6 +31,7 @@ steps:
     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
 
 # Get Image SHA from Artifact Registry
+## Different format to `gcloud` builder example
 - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
   id: "Get Image Digest"
   entrypoint: /bin/bash
@@ -41,15 +42,14 @@ steps:
       $_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA \
       --format 'value(image_summary.digest)' > /workspace/image-sha.txt
 
-- name: gcr.io/cloud-builders/gcloud
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
   id: Create a Software Bill of Materials (SBOM)
   allowFailure: true
+  entrypoint: /bin/bash
   args:
-    - artifacts
-    - sbom
-    - export
-    - '--uri'
-    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE@$(cat /workspace/image-sha.txt)'
+    - -c
+    - |
+      gcloud artifacts sbom export --uri ${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
     # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
 
 
