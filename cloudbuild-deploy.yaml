@@ -49,7 +49,7 @@ steps:
     - sbom
     - export
     - '--uri'
-    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE@`cat /workspace/image-sha.txt`'
+    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE@$(cat /workspace/image-sha.txt)'
     # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
 
 
