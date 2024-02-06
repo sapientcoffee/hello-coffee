@@ -14,6 +14,7 @@ steps:
   entrypoint: 'python'
   args: ['-m', 'pytest', '--junitxml=${SHORT_SHA}_test_log.xml']
 
+# Create Container Image
 - name: gcr.io/cloud-builders/docker
   id: Build Container Image
   args:
@@ -21,7 +22,14 @@ steps:
     - '-t'
     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
     - .
-  
+
+# Push Container Image to Artifact Registry
+- name: gcr.io/cloud-builders/docker
+  id: Push Container Image
+  args:
+    - push
+    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
 # Get Image SHA from Artifact Registry
 - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
   id: "Get Image Digest"
