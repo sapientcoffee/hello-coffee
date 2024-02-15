@@ -21,14 +21,15 @@ def about():
 @app.route("/404")
 def notfound():    
     return render_template("404.html")
-
-@app.route("/webstore")
-def notfound():    
-    return render_template("https://ui-pcf4i4lcra-nw.a.run.app/")
     
 @app.route("/coffeesay")
 def salvador():
     return "The best `cowsay` fork ever (well it will be :-))"
+
+@app.route("/webstore")
+def redirect_to_webstore():
+    external_url = "https://ui-pcf4i4lcra-nw.a.run.app/"  
+    return redirect(external_url)    
     
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
