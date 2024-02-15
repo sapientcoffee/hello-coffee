@@ -21,6 +21,10 @@ def about():
 @app.route("/404")
 def notfound():    
     return render_template("404.html")
+
+@app.route("/webstore")
+def notfound():    
+    return render_template("https://ui-pcf4i4lcra-nw.a.run.app/")
     
 @app.route("/coffeesay")
 def salvador():
