@@ -1,0 +1,97 @@
+steps:
+# ⁉️ Golang versions
+- id: ⁉️ Golang Versions
+  name: "gcr.io/cloud-builders/go"
+  args: ["version"]
+  env: ["GOPATH=."]
+
+# linter
+- id: 👨‍💻 Linter
+  name: "golangci/golangci-lint"
+  args: ["golangci-lint","run", "./ui/main.go"]
+
+# unit Test
+- id: 🧑‍🔬 Unit Test(s)
+  name: "gcr.io/cloud-builders/go"
+  args: ["test","./ui/main_test.go"]
+  env: ["GOPATH=."]
+
+# Check to see if the existing clone has the depth needed for the dif
+- id: Clone code from Git 
+  name: gcr.io/cloud-builders/git
+  args:
+    - clone
+    - 'https://github.com/sapientcoffee/hello-coffee.git'
+    - ./clone/
+
+- name: 'europe-docker.pkg.dev/coffee-and-codey/codey-builder-image/codey:latest'
+  args:
+    - python3
+    - /scripts/git-analysis.py
+  id: Compare current and the last version of code
+
+- name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey:latest'
+  args:
+    - cat
+    - "/example_code/coffee.go" 
+  id: Changes Made (diff)
+
+- name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey:latest'
+  args:
+    - buildey
+    - review
+    - code
+    - -f 
+    - "/example_code/coffee.go" 
+    # - "/workspace/diff.txt"
+  id: 🔍Using AI for code review
+  allowFailure: true
+
+
+# Create Container Image
+- name: gcr.io/cloud-builders/docker
+  id: 🏗️ Build Container Image
+  args:
+    - build
+    - '-t'
+    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+    - .
+
+# Push Container Image to Artifact Registry
+- name: gcr.io/cloud-builders/docker
+  id: 🏗️ Push Container Image
+  args:
+    - push
+    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
+# Get Image SHA from Artifact Registry
+## Different format to `gcloud` builder example
+- name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  id: "🔐 Get Image Digest"
+  entrypoint: /bin/bash
+  args: 
+    - -c
+    - |
+      gcloud artifacts docker images describe \
+      $_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA \
+      --format 'value(image_summary.digest)' > /workspace/image-sha.txt
+
+# Genereate SBOM
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  id: 🔐 Create a Software Bill of Materials (SBOM)
+  allowFailure: true
+  entrypoint: /bin/bash
+  args:
+    - -c
+    - |
+      gcloud artifacts sbom export --uri ${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
+    # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
+
+images:
+- '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
+
+options:
+  # logging: CLOUD_LOGGING_ONLY
+  requestedVerifyOption: VERIFIED
+  dynamicSubstitutions: true
