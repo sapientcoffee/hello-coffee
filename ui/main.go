@@ -59,7 +59,11 @@ func home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Unmarshall json into an array of coffee
-	json.Unmarshal(rd, &p.Coffees)
+	err = json.Unmarshal(rd, &p.Coffees)
+	if err != nil {
+		// Handle the error, typically by logging it or returning an error
+		log.Println("Error unmarshaling JSON:", err)
+	}
 	// Iterate through and get ratings (this is really inefficient and demo-y)
 	for _, c := range p.Coffees {
 		qu, err := http.Get(fmt.Sprintf("%v/rating?id=%v", cfg.api, url.QueryEscape(c.ID)))
