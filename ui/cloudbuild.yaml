@@ -34,7 +34,7 @@ images:
 options:
   substitutionOption: ALLOW_LOOSE
 substitutions:
-  _DEPLOY_REGION: europe-west1
+  _DEPLOY_REGION: europe-west2
   _PLATFORM: managed
   _SERVICE_NAME: ui
   _ROOT_DIR: ui
