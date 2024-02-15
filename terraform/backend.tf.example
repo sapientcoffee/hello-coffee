@@ -1,6 +1,0 @@
-terraform {
-  backend "gcs" {
-    bucket = "butter-robot-demo"
-    prefix = "terraform/state"
-  }
-}
