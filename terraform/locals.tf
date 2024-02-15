@@ -24,12 +24,12 @@ locals {
   # URL for Artifact Registry
   container_repo = "${google_artifact_registry_repository.repo.location}-docker.pkg.dev/${google_artifact_registry_repository.repo.project}/${google_artifact_registry_repository.repo.name}"
 
-  # Cloud Build SA
-  build_sa = "service-${google_project.project.number}@gcp-sa-cloudbuild.iam.gserviceaccount.com"
-  other_build_sa = "${google_project.project.number}@cloudbuild.gserviceaccount.com"
-  build_roles = [
-    "roles/owner",
-    "roles/iam.serviceAccountUser",
-    "roles/secretmanager.secretAccessor",
-  ]
+#   # Cloud Build SA
+#   build_sa = "service-${google_project.project.number}@gcp-sa-cloudbuild.iam.gserviceaccount.com"
+#   other_build_sa = "${google_project.project.number}@cloudbuild.gserviceaccount.com"
+#   build_roles = [
+#     "roles/owner",
+#     "roles/iam.serviceAccountUser",
+#     "roles/secretmanager.secretAccessor",
+#   ]
 }
