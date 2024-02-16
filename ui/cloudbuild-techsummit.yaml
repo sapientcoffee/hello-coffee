@@ -1,52 +1,62 @@
 steps:
+# increase depth of git clone and diff
+- id: 🗂️ Reset git to unshallow
+  name: gcr.io/cloud-builders/git
+  args:
+    - fetch
+    - '--unshallow'
+- id: 🗂️ Pulling git history
+  name: gcr.io/cloud-builders/git
+  args:
+    - pull
+    - origin
+    - $REF_NAME
+- id: 🗂️ Comparing latest and most recent commits
+  name: gcr.io/cloud-builders/git
+  args:
+    - diff
+    - HEAD~1
+    - '--output'
+    - diff.txt
+
 # ⁉️ Golang versions
 - id: ⁉️ Golang Versions
+  waitFor: ['-']
   name: "gcr.io/cloud-builders/go"
   args: ["version"]
   env: ["GOPATH=."]
 
 # linter
 - id: 👨‍💻 Linter
+  waitFor: ['-']
   name: "golangci/golangci-lint"
   args: ["golangci-lint","run", "./ui/main.go"]
 
 # unit Test
 - id: 🧑‍🔬 Unit Test(s)
+  waitFor: ['-']
   name: "gcr.io/cloud-builders/go"
   args: ["test","./ui/main_test.go"]
   env: ["GOPATH=."]
 
-# Check to see if the existing clone has the depth needed for the dif
-- id: Clone code from Git 
-  name: gcr.io/cloud-builders/git
-  args:
-    - clone
-    - 'https://github.com/sapientcoffee/hello-coffee.git'
-    - ./clone/
+- name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  id: "output the diff"
+  entrypoint: /bin/bash
+  args: 
+    - -c
+    - |
+      cat diff.txt
 
-- name: 'europe-docker.pkg.dev/coffee-and-codey/codey-builder-image/codey:latest'
-  args:
-    - python3
-    - /scripts/git-analysis.py
-  id: Compare current and the last version of code
-
-- name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey:latest'
-  args:
-    - cat
-    - "/example_code/coffee.go" 
-  id: Changes Made (diff)
-
-- name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey:latest'
+- id: 🤖 Code review assistance
+  name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey:latest'
   args:
     - buildey
     - review
     - code
     - -f 
-    - "/example_code/coffee.go" 
+    - "diff.txt" 
     # - "/workspace/diff.txt"
-  id: 🔍Using AI for code review
   allowFailure: true
-
 
 # Create Container Image
 - name: gcr.io/cloud-builders/docker
