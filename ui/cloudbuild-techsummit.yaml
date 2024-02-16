@@ -54,48 +54,49 @@ steps:
     - review
     - code
     - -f 
-    - "diff.txt" 
-    # - "/workspace/diff.txt"
+    - "diff.txt"
   allowFailure: true
 
-# Create Container Image
-- name: gcr.io/cloud-builders/docker
-  id: 🏗️ Build Container Image
-  args:
-    - build
-    - '-t'
-    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
-    - .
 
-# Push Container Image to Artifact Registry
-- name: gcr.io/cloud-builders/docker
-  id: 🏗️ Push Container Image
-  args:
-    - push
-    - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+### The below block should probably be in another workflow that is triggered once a mainal approval/review step is done
+# # Create Container Image
+# - name: gcr.io/cloud-builders/docker
+#   id: 🏗️ Build Container Image
+#   args:
+#     - build
+#     - '-t'
+#     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+#     - .
 
-# Get Image SHA from Artifact Registry
-## Different format to `gcloud` builder example
-- name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-  id: "🔐 Get Image Digest"
-  entrypoint: /bin/bash
-  args: 
-    - -c
-    - |
-      gcloud artifacts docker images describe \
-      $_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA \
-      --format 'value(image_summary.digest)' > /workspace/image-sha.txt
+# # Push Container Image to Artifact Registry
+# - name: gcr.io/cloud-builders/docker
+#   id: 🏗️ Push Container Image
+#   args:
+#     - push
+#     - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
 
-# Genereate SBOM
-- name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  id: 🔐 Create a Software Bill of Materials (SBOM)
-  allowFailure: true
-  entrypoint: /bin/bash
-  args:
-    - -c
-    - |
-      gcloud artifacts sbom export --uri ${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
-    # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
+# # Get Image SHA from Artifact Registry
+# ## Different format to `gcloud` builder example
+# - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+#   id: "🔐 Get Image Digest"
+#   entrypoint: /bin/bash
+#   args: 
+#     - -c
+#     - |
+#       gcloud artifacts docker images describe \
+#       $_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA \
+#       --format 'value(image_summary.digest)' > /workspace/image-sha.txt
+
+# # Genereate SBOM
+# - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+#   id: 🔐 Create a Software Bill of Materials (SBOM)
+#   allowFailure: true
+#   entrypoint: /bin/bash
+#   args:
+#     - -c
+#     - |
+#       gcloud artifacts sbom export --uri ${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
+#     # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
 
 images:
 - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
