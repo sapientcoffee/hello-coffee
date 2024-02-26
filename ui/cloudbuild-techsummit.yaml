@@ -53,8 +53,8 @@ steps:
     - buildey
     - review
     - code
-    - -f 
-    - "diff.txt"
+    # - -f 
+    # - "diff.txt"
   allowFailure: true
 
 

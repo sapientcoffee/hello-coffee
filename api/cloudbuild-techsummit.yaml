@@ -1,0 +1,59 @@
+steps:
+# increase depth of git clone and diff
+- id: 🗂️ Reset git to unshallow
+  name: gcr.io/cloud-builders/git
+  args:
+    - fetch
+    - '--unshallow'
+- id: 🗂️ Pulling git history
+  name: gcr.io/cloud-builders/git
+  args:
+    - pull
+    - origin
+    - $REF_NAME
+- id: 🗂️ Comparing latest and most recent commits
+  name: gcr.io/cloud-builders/git
+  args:
+    - diff
+    - HEAD~1
+    - '--output'
+    - diff.txt
+
+# ⁉️ Golang versions
+- id: ⁉️ Golang Versions
+  waitFor: ['-']
+  name: "gcr.io/cloud-builders/go"
+  args: ["version"]
+  env: ["GOPATH=."]
+
+# linter
+- id: 👨‍💻 Linter
+  waitFor: ['-']
+  name: "golangci/golangci-lint"
+  args: ["golangci-lint","run", "./ui/main.go"]
+
+# unit Test
+- id: 🧑‍🔬 Unit Test(s)
+  waitFor: ['-']
+  name: "gcr.io/cloud-builders/go"
+  args: ["test","./ui/main_test.go"]
+  env: ["GOPATH=."]
+
+- id: 🤖 Code review assistance
+  name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey@sha256:c9d1a646bf282de0f036e05e43b6e15dadc64ec87f64645da3ba7a750c2423a9'
+  args:
+    - buildey
+    - review
+    - code
+    # - -f 
+    # - "diff.txt"
+  allowFailure: true
+
+images:
+- '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+
+
+options:
+  # logging: CLOUD_LOGGING_ONLY
+  requestedVerifyOption: VERIFIED
+  dynamicSubstitutions: true
