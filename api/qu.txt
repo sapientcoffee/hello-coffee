@@ -1,0 +1,5 @@
+First does this code handle errors correctly?
+Second does this code follow Go standards?
+Thirdly does this code pass values it should?
+Fourthly does this code pass maintainability, readability and quality checks?
+Fifthly, are interfaces in this code defined in the correct packages?

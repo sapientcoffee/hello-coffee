@@ -39,13 +39,13 @@ steps:
   args: ["test","./ui/main_test.go"]
   env: ["GOPATH=."]
 
-# - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-#   id: "output the diff"
-#   entrypoint: /bin/bash
-#   args: 
-#     - -c
-#     - |
-#       cat diff.txt
+- name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  id: "output the diff"
+  entrypoint: /bin/bash
+  args: 
+    - -c
+    - |
+      cat diff.txt
 
 - id: 🤖 Code review assistance
   name: 'europe-docker.pkg.dev/coffee-and-codey/buildey-image/buildey@sha256:c9d1a646bf282de0f036e05e43b6e15dadc64ec87f64645da3ba7a750c2423a9'
@@ -53,8 +53,8 @@ steps:
     - buildey
     - review
     - code
-    # - -f 
-    # - "diff.txt"
+    - -f 
+    - diff.txt
   allowFailure: true
 
 
@@ -98,8 +98,8 @@ steps:
 #       gcloud artifacts sbom export --uri ${_AR_HOSTNAME}/${PROJECT_ID}/${_SERVICE_NAME}/${_IMAGE}@$(cat /workspace/image-sha.txt)
 #     # - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE'
 
-images:
-- '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
+# images:
+# - '$_AR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME/$_IMAGE:$COMMIT_SHA'
 
 
 options:
