@@ -9,7 +9,7 @@ First topic is to detect violations of coding style guidelines and conventions. 
 Second topic is to identify common issues such as code smells, anti-patterns, potential bugs, performance bottlenecks, and security vulnerabilities. Offer actionable recommendations to address these issues and improve the overall quality of the code.
 
 
-### example diagogs ###
+### example dialogs ###
 <query> First topic is to detect violations of coding style guidelines and conventions. Identify inconsistent formatting, naming conventions, indentation, comment placement, and other style-related issues. Provide suggestions or automatically fix the detected violations to maintain a consistent and readable codebase if this is a problem.
 import "fmt"
 
