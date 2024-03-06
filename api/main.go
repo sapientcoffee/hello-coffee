@@ -49,15 +49,7 @@ func rating(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// TODO: Read rating from firestore using Coffee struct
-		doc, err := client.Collection(cfg.collection).Doc(docID).Get(r.Context())
-		if err != nil {
-			http.Error(w, "Error getting document from Firestore", http.StatusInternalServerError)
-			return
-		}
-		var c Coffee
-		doc.DataTo(&c)
-		fmt.Fprintf(w, "%v", c.Rating)
-	
+	fmt.Fprintf(w, "0")
 }
 
 func coffees(w http.ResponseWriter, r *http.Request) {
