@@ -29,6 +29,7 @@ The inner loop comprises developer tasks such as coding, testing, and pushing to
 
 The following is an overview skatch highlighting the key aspects and the various application components;
 
+![app services](./static/hello-coffee_services.png)
 
 The tech stack includes;
 * Cloud Workstations
@@ -41,6 +42,7 @@ The tech stack includes;
 * Cloud Opetations (Monitoring, Logging, SLO, Alerting)
 * Firebase
 
+![](./static/hello-coffee_architecture.png)
 
 
 ## Inner Loop
