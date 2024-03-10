@@ -27,10 +27,29 @@ The inner loop comprises developer tasks such as coding, testing, and pushing to
 
 ## Architecture
 
+The following is an overview skatch highlighting the key aspects and the various application components;
+
+
+The tech stack includes;
+* Cloud Workstations
+* Skaffold
+* Cloud Code (inc DuetAI)
+* Cloud Build 
+* Artifact Registry 
+* Cloud Deploy
+* Cloud Run
+* Cloud Opetations (Monitoring, Logging, SLO, Alerting)
+* Firebase
+
 
 
 ## Inner Loop
 The inner loop is everything prior to code being pushed to git and represents the core coding (day-to-day activities), testing, and debugging activities that developers perform as they work on the details of the code. It is a continuous and iterative process where developers rapidly cycle through these activities to make incremental improvements and ensure the code's quality. The goal of the inner loop is to ensure that the codebase remains stable and reliable while quickly responding to changes, fixing issues, and delivering updates to the software product. It is a fundamental part of modern software development practices and contributes to the agility and responsiveness of development teams.
+
+Demos;
+* Onboarding new developer
+* Inner Loop development 
+* Code Assistant (code completions, discussions, reviews, documentation etc.)
 
 ### Cloud Workstations
 
