@@ -17,6 +17,18 @@ profiles:
     - deploy-brew.yaml
 deploy:
   cloudrun: {}
+verify:
+  - name: verify-test
+    container: 
+      image: ubuntu
+      command: ["/bin/sh"]
+      args: ["-c", 'echo "this is a verify action"' ]
+      name: ubuntu
+  - name: verify-endpoint-test
+    container:
+      name: gcloud
+      image: 	gcr.io/cloud-builders/gcloud
+      args: ["info"]  
 customActions:
 - name: predeploy-action
   containers:
