@@ -1,0 +1,29 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - "--no-cache"
+      - "-t"
+      - "$_CONTAINER_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+      - $_ROOT_DIR
+      - "-f"
+      - $_ROOT_DIR/Dockerfile
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - "$_CONTAINER_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+    id: Push
+
+images:
+  - "$_CONTAINER_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _DEPLOY_REGION: europe-west1
+  _PLATFORM: managed
+  _SERVICE_NAME: ui
+  _ROOT_DIR: ui
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed

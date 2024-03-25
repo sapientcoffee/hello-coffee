@@ -1,8 +1,22 @@
-# Coffee Time
+# Cymbal Coffee's Cloud Caffeinated DevOps Lab
 
-The simple app has been created to help demonstrate various aspects of application development and Google Cloud. Its fairly basic by design and of course coffee themed!
+![Picture of a coffee mug saying hello](./static/hello-coffee.jpeg)
 
-Thing are broken down into the "inner" and "outer" loops.
+Attention cloud engineers, DevOps enthusiasts, SRE's and caffeine lovers!  
+
+Optimise your software delivery pipelines and boost service reliability with Cymbal Coffee's collection of (slightly chaotic) cloud demo apps.
+
+These playful, containerised scenarios take inspiration from DORA, letting you practice:
+
+* Speedy deployments (Fresh code, no stale lattes here!)
+* Change failure management (Don't let bad updates spill over!)
+* Monitoring and observability (Every coffee bean counts!)
+
+We experiment with real-world scenarios, from managing bean shortages (because nobody likes a grumpy developer!) to tuning espresso machine performance (no more burnt lattes!).
+
+Ready to run on Google Cloud, this collection is perfect for experimenting, training, and getting those DevOps/DevEx muscles brewing.  So ditch the lukewarm decaf processes and dive in! Whether you're a seasoned Cloud barista or just starting your first cup, Cymbal Coffee's Cloud Caffeinated collection will get your skills perked up in no time!
+
+Thing have been broken down into the "inner" and "outer" loops.
 
 ![inner and outer loop sketch](./static/inner-outter-loop.png)
 
@@ -10,8 +24,34 @@ The following are mainly notes/prompts for me personally (I have a terrible memo
 
 The inner loop comprises developer tasks such as coding, testing, and pushing to version control while the outer loop includes activities such as code merge, automated code review, test execution, deployment, and release.
 
+
+## Architecture
+
+The following is an overview skatch highlighting the key aspects and the various application components;
+
+![app services](./static/hello-coffee_services.png)
+
+The tech stack includes;
+* Cloud Workstations
+* Skaffold
+* Cloud Code (inc DuetAI)
+* Cloud Build 
+* Artifact Registry 
+* Cloud Deploy
+* Cloud Run
+* Cloud Opetations (Monitoring, Logging, SLO, Alerting)
+* Firebase
+
+![](./static/hello-coffee_architecture.png)
+
+
 ## Inner Loop
 The inner loop is everything prior to code being pushed to git and represents the core coding (day-to-day activities), testing, and debugging activities that developers perform as they work on the details of the code. It is a continuous and iterative process where developers rapidly cycle through these activities to make incremental improvements and ensure the code's quality. The goal of the inner loop is to ensure that the codebase remains stable and reliable while quickly responding to changes, fixing issues, and delivering updates to the software product. It is a fundamental part of modern software development practices and contributes to the agility and responsiveness of development teams.
+
+Demos;
+* Onboarding new developer
+* Inner Loop development 
+* Code Assistant (code completions, discussions, reviews, documentation etc.)
 
 ### Cloud Workstations
 
