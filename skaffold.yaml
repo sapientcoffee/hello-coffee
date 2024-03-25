@@ -24,6 +24,10 @@ customActions:
     image: ubuntu
     command: ["/bin/sh"]
     args: ["-c", 'echo "this is a predeploy action"' ]
+  - name: predeploy-echo2
+    image: ubuntu
+    command: ["/bin/sh"]
+    args: ["-c", 'echo "this is the 2nd predeploy action"' ]
 - name: postdeploy-action
   containers:
   - name: postdeploy-echo

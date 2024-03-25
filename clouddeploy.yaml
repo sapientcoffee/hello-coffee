@@ -9,7 +9,7 @@ serialPipeline:
     profiles: [beans]
     strategy:
       standard:
-        verify: false # incorporate verification from https://shell.cloud.google.com/?show=ide%2Cterminal&walkthrough_id=deploy--cloud-deploy-verification-run&pli=1
+        verify: true # incorporate verification from https://shell.cloud.google.com/?show=ide%2Cterminal&walkthrough_id=deploy--cloud-deploy-verification-run&pli=1
         predeploy:
           actions: ["predeploy-action"]
         postdeploy:
