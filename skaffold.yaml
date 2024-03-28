@@ -39,7 +39,7 @@ customActions:
   - name: predeploy-echo2
     image: ubuntu
     command: ["/bin/sh"]
-    args: ["-c", 'echo "this is the 2nd predeploy action"' ]
+    args: ["-c", 'result=$(curl -s -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" -X GET "https://monitoring.googleapis.com/v3/projects/coffee-and-codey/timeSeries?filter=select_slo_compliance(\"projects/300502296392/services/EdBHZ28PQQ6hnrzp_YTZeA/serviceLevelObjectives/lADl8mfLTUG64aE9yCnYEQ\")&interval.endTime=2024-03-28T11:05:00.0Z" | jq ".timeSeries[0].points[0].value.doubleValue") && [[ "$result" == "1" ]] && echo "SLO Compliance Check: PASS" || echo "SLO Compliance Check: FAIL"' ]
 - name: postdeploy-action
   containers:
   - name: postdeploy-echo
