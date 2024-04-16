@@ -28,8 +28,6 @@ type Coffee struct {
 
 
 func rating(w http.ResponseWriter, r *http.Request) {
-
-
    docID := r.URL.Query().Get("id")
    if docID == "" {
        http.Error(w, "Expected 'id' field", http.StatusBadRequest)
